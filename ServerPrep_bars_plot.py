@@ -1,13 +1,12 @@
 """
 Demo of table function to display a table within a plot.
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-
-data = [[  2268, 3406,  1826],
-        [  13650, 11612,  10310],
-        [ 3726, 7144,  5290]]
+data = [[2268, 3406, 1826],
+        [13650, 11612, 10310],
+        [3726, 7144, 5290]]
 
 columns = ('Alpha', 'NSLS-II', 'cpu-001')
 rows = ['Total User Time', 'Total Server Time', 'Server Preparation Time']
@@ -30,7 +29,7 @@ cell_text = []
 for row in range(n_rows):
     plt.bar(index, data[row], bar_width, bottom=y_offset, color=colors[row])
     y_offset = y_offset + data[row]
-    cell_text.append(['%1.1f' % (x/1000.0) for x in y_offset])
+    cell_text.append(['%1.1f' % (x / 1000.0) for x in y_offset])
 # Reverse colors and text labels to display the last value at the top.
 colors = colors[::-1]
 cell_text.reverse()
@@ -51,6 +50,4 @@ plt.xticks([])
 plt.title('NSLS-II FMX beamline simulation time comparison')
 plt.grid(True)
 
-
 plt.show()
-

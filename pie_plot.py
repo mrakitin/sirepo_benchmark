@@ -34,4 +34,3 @@ for k in sorted(all_sizes.keys()):
     plt.axis('equal')
     plt.title('cpu-001 server, NSLS-II FMX beamline, sampling factor = 0.7')
     plt.show()
-

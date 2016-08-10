@@ -1,7 +1,5 @@
-
-import numpy as np
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 n_groups = 3
 
@@ -43,4 +41,3 @@ plt.grid()
 
 plt.tight_layout()
 plt.show()
-
