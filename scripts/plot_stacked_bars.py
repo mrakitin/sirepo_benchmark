@@ -87,9 +87,10 @@ def plot_stacked_bars(data, title=None, fontsize=22, figname='plot.png'):
 if __name__ == '__main__':
     title = 'NSLS-II FMX beamline simulation time comparison'
     figname = 'stacked_bars_server_preparation.png'
-    data = [
-        [13650, 10310, 11612],
-        [2268, 1826, 3406],
-        [3726, 5290, 7144],
+    data = [  # milliseconds
+        # alpha, nsls-ii docker, nsls-ii vagrant
+        [13650, 10310, 11612],  # duration (SRW calculation)
+        [2268, 1826, 3406],  # waiting - duration (response preparation)
+        [3726, 5290, 7144],  # total - waiting (data transfer)
     ]
     plot_stacked_bars(data, figname=figname)
