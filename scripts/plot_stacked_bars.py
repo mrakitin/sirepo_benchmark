@@ -7,7 +7,7 @@ import numpy as np
 
 
 def plot_stacked_bars(data, title=None, fontsize=22, figname='plot.png'):
-    columns = ('Alpha', 'NSLS-II (Vagrant)', 'NSLS-II (Docker)')
+    columns = ('Alpha', 'NSLS-II (Docker)', 'NSLS-II (Vagrant)')
     rows = ['Total User Time [s]', 'Total Server Time [s]', 'Calculation Time [s]']
     phase = ['Calculation', 'Response Preparation', 'Data Transfer']
 
@@ -88,8 +88,8 @@ if __name__ == '__main__':
     title = 'NSLS-II FMX beamline simulation time comparison'
     figname = 'stacked_bars_server_preparation.png'
     data = [
-        [13650, 11612, 10310],
-        [2268, 3406, 1826],
-        [3726, 7144, 5290],
+        [13650, 10310, 11612],
+        [2268, 1826, 3406],
+        [3726, 5290, 7144],
     ]
     plot_stacked_bars(data, figname=figname)
