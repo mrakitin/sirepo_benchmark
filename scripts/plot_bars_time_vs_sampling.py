@@ -3,8 +3,8 @@ import numpy as np
 from plot_lib import plot_bars
 
 if __name__ == '__main__':
-    quantities = ['web', 'command_line']
-    quantity_labels = ['Web interface', 'Command line interface']
+    quantities = ['command_line', 'web']
+    quantity_labels = ['Command line interface', 'Browser interface']
     xlabel = 'Sampling factor'
     ylabel = 'Time [s]'
     title = 'Server Comparison by Time of Calculation and\nTotal Wait Time (NSLS-II FMX beamline, sampling factor = 0.7)'
