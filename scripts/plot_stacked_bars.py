@@ -27,14 +27,17 @@ def plot_stacked_bars(data, title=None, fontsize=20, figname='plot.png'):
     # Initialize the vertical-offset for the stacked bar chart.
     y_offset = np.zeros(len(columns))
 
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
     # Plot bars and create text labels for the table
     cell_text = []
     for row in range(n_rows):
         l = ' '.join(rows[-row - 1].split(' ')[:3])
-        a = plt.bar(index, data[row], bar_width, bottom=y_offset, color=colors[row], tick_label=l, edgecolor='black', label=phase[row])
+        a = ax.bar(index, data[row], bar_width, bottom=y_offset, color=colors[row], tick_label=l, edgecolor='black', label=phase[row])
         if row > 0:
             for i in range(len(a)):
-                plt.text(
+                ax.text(
                     a[i].get_x() + a[i].get_width() + 0.01,
                     y_offset[i] + a[i].get_height(),
                     '{}'.format(l),
@@ -50,14 +53,15 @@ def plot_stacked_bars(data, title=None, fontsize=20, figname='plot.png'):
         y_offset += data[row]
         cell_text.append(['{:1.1f}'.format(x / 1000.0) for x in y_offset])
 
-    plt.legend(loc=2)
+    handles, labels = ax.get_legend_handles_labels()
+    ax.legend(handles[::-1], labels[::-1], loc='upper left')
 
     # Reverse colors and text labels to display the last value at the top.
     colors = colors[::-1]
     cell_text.reverse()
 
     # Add a table at the bottom of the axes
-    the_table = plt.table(
+    the_table = ax.table(
         cellText=cell_text,
         rowLabels=rows,
         rowColours=colors,
@@ -69,7 +73,7 @@ def plot_stacked_bars(data, title=None, fontsize=20, figname='plot.png'):
 
     # Set font size:
     # matplotlib.rcParams.update({'font.size': fontsize})
-    plt.tick_params(axis='y', which='major', labelsize=fontsize)
+    ax.tick_params(axis='y', which='major', labelsize=fontsize)
 
     # Adjust layout to make room for the table:
     plt.subplots_adjust(left=0.2, bottom=0.2)
