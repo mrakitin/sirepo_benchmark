@@ -6,7 +6,7 @@ if __name__ == '__main__':
     quantities = ['calc_time', 'wait_time']
     quantity_labels = ['Calculation time', 'Total waiting time']
     xlabel = 'Servers'
-    ylabel = 'Total waiting time [s]'
+    ylabel = 'Time [s]'
     title = ''
     data = {
         'Alpha': {
