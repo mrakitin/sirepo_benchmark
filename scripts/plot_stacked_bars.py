@@ -6,7 +6,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_stacked_bars(data, title=None, fontsize=22, figname='plot.png'):
+def plot_stacked_bars(data, title=None, fontsize=20, figname='plot.png'):
+    # Set font size:
+    matplotlib.rcParams.update({'font.size': fontsize})
+
     columns = ('Alpha', 'NSLS-II (Docker)', 'NSLS-II (Vagrant)')
     rows = ['Total User Time [s]', 'Total Server Time [s]', 'Calculation Time [s]']
     phase = ['Calculation', 'Response Preparation', 'Data Transfer']
@@ -19,7 +22,7 @@ def plot_stacked_bars(data, title=None, fontsize=22, figname='plot.png'):
     n_rows = len(data)
 
     index = np.arange(len(columns)) + 0.6
-    bar_width = 0.46
+    bar_width = 0.25
 
     # Initialize the vertical-offset for the stacked bar chart.
     y_offset = np.zeros(len(columns))
@@ -28,24 +31,26 @@ def plot_stacked_bars(data, title=None, fontsize=22, figname='plot.png'):
     cell_text = []
     for row in range(n_rows):
         l = ' '.join(rows[-row - 1].split(' ')[:3])
-        a = plt.bar(index, data[row], bar_width, bottom=y_offset, color=colors[row], tick_label=l, edgecolor='black')
+        a = plt.bar(index, data[row], bar_width, bottom=y_offset, color=colors[row], tick_label=l, edgecolor='black', label=phase[row])
         if row > 0:
             for i in range(len(a)):
                 plt.text(
                     a[i].get_x() + a[i].get_width() + 0.01,
                     y_offset[i] + a[i].get_height(),
                     '{}'.format(l),
-                    ha='left', va='center'
+                    ha='left', va='center', fontsize=fontsize,
                 )
-        for i, r in enumerate(a):
-            plt.text(
-                r.get_x() + r.get_width() / 2.,
-                y_offset[i] + r.get_height() / 2. - 300,
-                '{}'.format(' '.join(phase[row].split(' ')[:2])),
-                ha='center', va='bottom'
-            )
+        # for i, r in enumerate(a):
+        #     plt.text(
+        #         r.get_x() + r.get_width() / 2.,
+        #         y_offset[i] + r.get_height() / 2. - 300,
+        #         '{}'.format(' '.join(phase[row].split(' ')[:2])),
+        #         ha='center', va='bottom'
+        #     )
         y_offset += data[row]
         cell_text.append(['{:1.1f}'.format(x / 1000.0) for x in y_offset])
+
+    plt.legend(loc=2)
 
     # Reverse colors and text labels to display the last value at the top.
     colors = colors[::-1]
@@ -60,10 +65,10 @@ def plot_stacked_bars(data, title=None, fontsize=22, figname='plot.png'):
         loc='bottom'
     )
     the_table.auto_set_font_size(False)
-    the_table.set_fontsize(14)
+    the_table.set_fontsize(fontsize)
 
     # Set font size:
-    matplotlib.rcParams.update({'font.size': fontsize})
+    # matplotlib.rcParams.update({'font.size': fontsize})
     plt.tick_params(axis='y', which='major', labelsize=fontsize)
 
     # Adjust layout to make room for the table:
@@ -72,14 +77,15 @@ def plot_stacked_bars(data, title=None, fontsize=22, figname='plot.png'):
     plt.ylabel('Time [s]', {'fontsize': fontsize})
     plt.yticks(values * value_increment, ['%d' % val for val in values])
     plt.xticks([])
-    plt.xlim([0, 3.2])
+    plt.xlim([0, 3.5])
+    plt.ylim([0, 27000])
     if title:
         plt.title(title)
     plt.grid(color='gray', linestyle='dotted')
 
     # plt.show()
     fig = plt.gcf()
-    fig.set_size_inches(16, 11.25)
+    fig.set_size_inches(18.0, 11.25)
     plt.savefig(figname)
     plt.show()
 
