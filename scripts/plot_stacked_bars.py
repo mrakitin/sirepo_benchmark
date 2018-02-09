@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_stacked_bars(data, title=None, fontsize=24, figname='plot.png'):
+def plot_stacked_bars(data, title=None, fontsize=26, figname='plot.png'):
     # Set font size:
     matplotlib.rcParams.update({'font.size': fontsize})
 
