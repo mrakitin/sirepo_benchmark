@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_stacked_bars(data, title=None, fontsize=20, figname='plot.png'):
+def plot_stacked_bars(data, title=None, fontsize=24, figname='plot.png'):
     # Set font size:
     matplotlib.rcParams.update({'font.size': fontsize})
 
@@ -34,7 +34,9 @@ def plot_stacked_bars(data, title=None, fontsize=20, figname='plot.png'):
     cell_text = []
     for row in range(n_rows):
         l = ' '.join(rows[-row - 1].split(' ')[:3])
-        a = ax.bar(index, data[row], bar_width, bottom=y_offset, color=colors[row], tick_label=l, edgecolor='black', label=phase[row])
+        a = ax.bar(index, data[row], bar_width,
+                   bottom=y_offset, color=colors[row], tick_label=l, edgecolor='black',
+                   label=phase[row], zorder=100)
         if row > 0:
             for i in range(len(a)):
                 ax.text(
@@ -51,25 +53,25 @@ def plot_stacked_bars(data, title=None, fontsize=20, figname='plot.png'):
         #         ha='center', va='bottom'
         #     )
         y_offset += data[row]
-        cell_text.append(['{:1.1f}'.format(x / 1000.0) for x in y_offset])
+        # cell_text.append(['{:1.1f}'.format(x / 1000.0) for x in y_offset])
 
     handles, labels = ax.get_legend_handles_labels()
     ax.legend(handles[::-1], labels[::-1], loc='upper left')
 
     # Reverse colors and text labels to display the last value at the top.
     colors = colors[::-1]
-    cell_text.reverse()
+    # cell_text.reverse()
 
     # Add a table at the bottom of the axes
-    the_table = ax.table(
-        cellText=cell_text,
-        rowLabels=rows,
-        rowColours=colors,
-        colLabels=columns,
-        loc='bottom'
-    )
-    the_table.auto_set_font_size(False)
-    the_table.set_fontsize(fontsize)
+    # the_table = ax.table(
+    #     cellText=[['', '', '']],
+    #     rowLabels=[''],
+    #     rowColours=colors,
+    #     colLabels=columns,
+    #     loc='bottom'
+    # )
+    # the_table.auto_set_font_size(False)
+    # the_table.set_fontsize(fontsize)
 
     # Set font size:
     # matplotlib.rcParams.update({'font.size': fontsize})
@@ -80,8 +82,10 @@ def plot_stacked_bars(data, title=None, fontsize=20, figname='plot.png'):
 
     plt.ylabel('Time [s]', {'fontsize': fontsize})
     plt.yticks(values * value_increment, ['%d' % val for val in values])
-    plt.xticks([])
-    plt.xlim([0, 3.5])
+    index = np.arange(len(columns))
+    bar_width = 0.35
+    plt.xticks(index + 1.7 * bar_width, columns)
+    plt.xlim([0.3, 3.5])
     plt.ylim([0, 27000])
     if title:
         plt.title(title)
@@ -89,7 +93,8 @@ def plot_stacked_bars(data, title=None, fontsize=20, figname='plot.png'):
 
     # plt.show()
     fig = plt.gcf()
-    fig.set_size_inches(18.0, 11.25)
+    fig.set_size_inches(18.0, 12.0)
+    plt.tight_layout()
     plt.savefig(figname)
     plt.show()
 
