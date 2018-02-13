@@ -4,7 +4,7 @@ from plot_lib import plot_bars
 
 if __name__ == '__main__':
     quantities = ['calc_time', 'wait_time']
-    quantity_labels = ['Calculation time', 'Total waiting time']
+    quantity_labels = ['Calculation', 'Waiting']
     xlabel = 'Servers'
     ylabel = 'Time [s]'
     title = ''
